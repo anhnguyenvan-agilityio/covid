@@ -11,7 +11,13 @@ const _ = require("lodash");
 
 const useStyles = makeStyles({
   firstCell: {
-    minWidth: "150px"
+    width: "150px"
+  },
+  cell: {
+    width: "150px"
+  },
+  headColor: {
+    backgroundColor: "#e8e4e3"
   }
 });
 
@@ -20,22 +26,22 @@ const CovidInfo = props => {
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
+      <Table aria-label="simple table">
+        <TableHead className={classes.headColor}>
           <TableRow>
             <TableCell className={classes.firstCell}>
               {props.info[0].countryName}
             </TableCell>
-            <TableCell>Số người nhiễm</TableCell>
-            <TableCell>Số người phục hồi</TableCell>
-            <TableCell>Số người chết</TableCell>
+            <TableCell className={classes.cell}>Nhiễm</TableCell>
+            <TableCell className={classes.cell}>Phục hồi</TableCell>
+            <TableCell className={classes.cell}>Chết</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {props.info.map(item => {
             return (
               <TableRow key={item.sk}>
-                <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row" align="left">
                   {item.sk}
                 </TableCell>
                 <TableCell align="left">

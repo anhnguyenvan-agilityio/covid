@@ -13,6 +13,7 @@ import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   bgAppBar: {
@@ -20,6 +21,10 @@ const useStyles = makeStyles(theme => ({
   },
   marginBtn: {
     marginRight: "20px"
+  },
+  title: {
+    marginRight: "20px",
+    color: "#000"
   }
 }));
 
@@ -110,13 +115,16 @@ const Home = props => {
       <HideOnScroll {...props}>
         <AppBar className={classes.bgAppBar}>
           <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              Sắp xếp
+            </Typography>
             <Button
               onClick={() => sort("confirmed")}
               variant="outlined"
               color="primary"
               className={classes.marginBtn}
             >
-              Sort theo số người nhiễm
+              Nhiễm
             </Button>
             <Button
               onClick={() => sort("deaths")}
@@ -124,7 +132,7 @@ const Home = props => {
               color="primary"
               className={classes.marginBtn}
             >
-              Sort theo số người chết
+              Chết
             </Button>
             <Button
               onClick={() => sort("recovered")}
@@ -132,7 +140,7 @@ const Home = props => {
               color="primary"
               className={classes.marginBtn}
             >
-              Sort theo số người bình phục
+              Bình phục
             </Button>
           </Toolbar>
         </AppBar>
