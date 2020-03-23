@@ -11,7 +11,8 @@ const _ = require("lodash");
 
 const useStyles = makeStyles({
   firstCell: {
-    width: "150px"
+    width: "150px",
+    fontSize: "1rem"
   },
   cell: {
     width: "150px"
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 });
 
 const CovidInfo = props => {
-  console.log("render" + props.info[0].countryName);
+  // console.log("render" + props.info[0].countryName);
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
@@ -48,7 +49,7 @@ const CovidInfo = props => {
                   {item.confirmed.toLocaleString() +
                     `${
                       item.increaseConfirmed || item.increaseConfirmed === 0
-                        ? `(+${item.increaseConfirmed})`
+                        ? ` (+${item.increaseConfirmed.toLocaleString()})`
                         : ""
                     }`}
                 </TableCell>
@@ -56,7 +57,7 @@ const CovidInfo = props => {
                   {item.recovered.toLocaleString() +
                     `${
                       item.increaseRecovered || item.increaseRecovered === 0
-                        ? `(+${item.increaseRecovered})`
+                        ? ` (+${item.increaseRecovered.toLocaleString()})`
                         : ""
                     }`}
                 </TableCell>
@@ -64,7 +65,7 @@ const CovidInfo = props => {
                   {item.deaths.toLocaleString() +
                     `${
                       item.increaseDeaths || item.increaseDeaths === 0
-                        ? `(+${item.increaseDeaths})`
+                        ? ` (+${item.increaseDeaths.toLocaleString()})`
                         : ""
                     }`}
                 </TableCell>
