@@ -363,7 +363,7 @@ const Home = props => {
               button
               onClick={() =>
                 alert(
-                  `Ánh Nguyễn Văn - AgilityIO - 0906.45.35.61 - anh.nguyenvan@asnet.com.vn`
+                  `Ánh Nguyễn Văn - 0906.45.35.61 - nguyenvananh2111@gmail.com`
                 )
               }
             >
