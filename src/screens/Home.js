@@ -167,19 +167,19 @@ const Home = props => {
     setOpen(false);
   };
   useEffect(() => {
-    // async function fetchData() {
-    //   const rs = await axios.get(
-    //     "https://gwfuix7x99.execute-api.us-east-1.amazonaws.com/prod/covid-19"
-    //   );
-    //   let { data } = rs.data;
-    //   setCovid(getData("confirmed", data));
-    //   covidAPI = data;
-    //   setLoading(false);
-    // }
-    // fetchData();
-    setCovid(getData("confirmed", mockCovidAPI));
-    covidAPI = mockCovidAPI;
-    setLoading(false);
+    async function fetchData() {
+      const rs = await axios.get(
+        "https://gwfuix7x99.execute-api.us-east-1.amazonaws.com/prod/covid-19"
+      );
+      let { data } = rs.data;
+      setCovid(getData("confirmed", data));
+      covidAPI = data;
+      setLoading(false);
+    }
+    fetchData();
+    // setCovid(getData("confirmed", mockCovidAPI));
+    // covidAPI = mockCovidAPI;
+    // setLoading(false);
   }, []);
 
   const render = () => {
@@ -362,11 +362,9 @@ const Home = props => {
             <ListItem
               button
               onClick={() =>
-                alert(`
-              Ánh Nguyễn Văn - AgilityIO
-              0906.45.35.61
-              anh.nguyenvan@asnet.com.vn
-              `)
+                alert(
+                  `Ánh Nguyễn Văn - AgilityIO - 0906.45.35.61 - anh.nguyenvan@asnet.com.vn`
+                )
               }
             >
               <ListItemText primary={"Giới thiệu tác giả"} />
