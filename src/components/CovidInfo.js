@@ -46,28 +46,28 @@ const CovidInfo = props => {
                   {item.sk}
                 </TableCell>
                 <TableCell align="left">
-                  {item.confirmed.toLocaleString() +
-                    `${
-                      item.increaseConfirmed || item.increaseConfirmed === 0
-                        ? ` (+${item.increaseConfirmed.toLocaleString()})`
-                        : ""
-                    }`}
+                  {item.confirmed.toLocaleString()}
+                  <span style={{ color: "red", fontWeight: "bold" }}>
+                    {item.increaseConfirmed || item.increaseConfirmed === 0
+                      ? ` (+${item.increaseConfirmed.toLocaleString()})`
+                      : ""}
+                  </span>
                 </TableCell>
                 <TableCell align="left">
-                  {item.recovered.toLocaleString() +
-                    `${
-                      item.increaseRecovered || item.increaseRecovered === 0
-                        ? ` (+${item.increaseRecovered.toLocaleString()})`
-                        : ""
-                    }`}
+                  {item.recovered.toLocaleString()}
+                  <span style={{ color: "red", fontWeight: "bold" }}>
+                    {item.increaseRecovered || item.increaseRecovered === 0
+                      ? ` (+${item.increaseRecovered.toLocaleString()})`
+                      : ""}
+                  </span>
                 </TableCell>
                 <TableCell align="left">
-                  {item.deaths.toLocaleString() +
-                    `${
-                      item.increaseDeaths || item.increaseDeaths === 0
-                        ? ` (+${item.increaseDeaths.toLocaleString()})`
-                        : ""
-                    }`}
+                  {item.deaths.toLocaleString()}
+                  <span style={{ color: "red", fontWeight: "bold" }}>
+                    {item.increaseDeaths || item.increaseDeaths === 0
+                      ? ` (+${item.increaseDeaths.toLocaleString()})`
+                      : ""}
+                  </span>
                 </TableCell>
               </TableRow>
             );
