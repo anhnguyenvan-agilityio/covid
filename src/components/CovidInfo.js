@@ -36,6 +36,7 @@ const CovidInfo = props => {
             <TableCell className={classes.cell}>Nhiễm</TableCell>
             <TableCell className={classes.cell}>Phục hồi</TableCell>
             <TableCell className={classes.cell}>Chết</TableCell>
+            <TableCell className={classes.cell}>Tỷ lệ chết</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -68,6 +69,9 @@ const CovidInfo = props => {
                       ? ` (+${item.increaseDeaths.toLocaleString()})`
                       : ""}
                   </span>
+                </TableCell>
+                <TableCell align="left">
+                  {(item.deathRate * 100).toFixed(2)} %
                 </TableCell>
               </TableRow>
             );

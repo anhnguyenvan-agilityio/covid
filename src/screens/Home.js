@@ -79,7 +79,7 @@ const useStyles = makeStyles(theme => ({
     padding: 10
   },
   bgAppBar: {
-    backgroundColor: "#e0e0e0"
+    backgroundColor: "#e8e4e3"
   },
   marginBtn: {
     marginRight: "10px",
@@ -203,9 +203,14 @@ const Home = props => {
           increaseRecovered: data[i].recovered - data[i + 1].recovered,
           increaseConfirmed: data[i].confirmed - data[i + 1].confirmed,
           increaseDeaths: data[i].deaths - data[i + 1].deaths
+          // deathRate: data[i].deaths / data[i].confirmed
         };
         rs.push(item);
       } else {
+        // rs.push({
+        //   ...data[i],
+        //   deathRate: data[i].deaths / data[i].confirmed
+        // });
         rs.push(data[i]);
       }
     }
@@ -226,9 +231,32 @@ const Home = props => {
 
   useEffect(() => {
     let getSort = "confirmed";
-    if (sortBy === 10) getSort = "confirmed";
-    else if (sortBy === 20) getSort = "recovered";
-    else getSort = "deaths";
+    // if (sortBy === 10) getSort = "confirmed";
+    // else if (sortBy === 20) getSort = "recovered";
+    // else getSort = "deaths";
+    // deathRate
+    switch (sortBy) {
+      case 10: {
+        getSort = "confirmed";
+        break;
+      }
+      case 20: {
+        getSort = "recovered";
+        break;
+      }
+      case 30: {
+        getSort = "deaths";
+        break;
+      }
+      case 40: {
+        getSort = "deathRate";
+        break;
+      }
+      default: {
+        getSort = "confirmed";
+        break;
+      }
+    }
     if (search) {
       const data = [...covidAPI];
       const found = data.filter(function(item) {
@@ -257,6 +285,11 @@ const Home = props => {
     if (value === 30) {
       sort("deaths");
       setSortBy(30);
+      return;
+    }
+    if (value === 40) {
+      sort("deathRate");
+      setSortBy(40);
       return;
     }
   };
@@ -312,6 +345,7 @@ const Home = props => {
                 <MenuItem value={10}>Nhiễm</MenuItem>
                 <MenuItem value={20}>Bình phục</MenuItem>
                 <MenuItem value={30}>Chết</MenuItem>
+                <MenuItem value={40}>Tỷ lệ chết</MenuItem>
               </Select>
             </FormControl>
             <Paper className={classes.searchContainer}>
@@ -351,13 +385,13 @@ const Home = props => {
               button
               onClick={() => alert("Tính năng vẫn đang phát triển")}
             >
-              <ListItemText primary={"Thống kế thế giới"} />
+              <ListItemText primary={"Thống kê thế giới"} />
             </ListItem>
             <ListItem
               button
               onClick={() => alert("Tính năng vẫn đang phát triển")}
             >
-              <ListItemText primary={"Thống kế Việt Nam"} />
+              <ListItemText primary={"Thống kê Việt Nam"} />
             </ListItem>
             <ListItem
               button

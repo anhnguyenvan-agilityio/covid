@@ -21,8 +21,15 @@ const compareValues = (key, order = "asc") => {
 };
 
 const getData = (type, data) => {
+  // Add more death rate
+  const dataMore = data.map(item => {
+    return {
+      ...item,
+      deathRate: item.deaths / item.confirmed
+    };
+  });
   const result = {};
-  const dataSortByType = data.sort(compareValues(type, "desc"));
+  const dataSortByType = dataMore.sort(compareValues(type, "desc"));
   const dataGroupByCountryName = _.groupBy(dataSortByType, "countryName");
   for (let key in dataGroupByCountryName) {
     result[key] = dataGroupByCountryName[key].sort(compareValues("sk", "desc"));
