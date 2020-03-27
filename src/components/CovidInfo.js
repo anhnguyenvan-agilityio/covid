@@ -12,13 +12,16 @@ const _ = require("lodash");
 const useStyles = makeStyles({
   firstCell: {
     width: "150px",
-    fontSize: "1rem"
+    fontSize: "1rem",
+    padding: "10px"
   },
   cell: {
+    padding: "10px",
     width: "150px"
   },
   headColor: {
-    backgroundColor: "#e8e4e3"
+    backgroundColor: "#e8e4e3",
+    padding: "10px"
   }
 });
 
@@ -46,7 +49,7 @@ const CovidInfo = props => {
                 <TableCell component="th" scope="row" align="left">
                   {item.sk}
                 </TableCell>
-                <TableCell align="left">
+                <TableCell align="left" className={classes.cell}>
                   {item.confirmed.toLocaleString()}
                   <span style={{ color: "red", fontWeight: "bold" }}>
                     {item.increaseConfirmed || item.increaseConfirmed === 0
@@ -54,7 +57,7 @@ const CovidInfo = props => {
                       : ""}
                   </span>
                 </TableCell>
-                <TableCell align="left">
+                <TableCell align="left" className={classes.cell}>
                   {item.recovered.toLocaleString()}
                   <span style={{ color: "red", fontWeight: "bold" }}>
                     {item.increaseRecovered || item.increaseRecovered === 0
@@ -62,7 +65,7 @@ const CovidInfo = props => {
                       : ""}
                   </span>
                 </TableCell>
-                <TableCell align="left">
+                <TableCell align="left" className={classes.cell}>
                   {item.deaths.toLocaleString()}
                   <span style={{ color: "red", fontWeight: "bold" }}>
                     {item.increaseDeaths || item.increaseDeaths === 0
@@ -70,7 +73,7 @@ const CovidInfo = props => {
                       : ""}
                   </span>
                 </TableCell>
-                <TableCell align="left">
+                <TableCell align="left" className={classes.cell}>
                   {(item.deathRate * 100).toFixed(2)} %
                 </TableCell>
               </TableRow>

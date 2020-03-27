@@ -143,6 +143,9 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
+  },
+  fullWidth: {
+    width: "100%"
   }
 }));
 
@@ -167,19 +170,19 @@ const Home = props => {
     setOpen(false);
   };
   useEffect(() => {
-    async function fetchData() {
-      const rs = await axios.get(
-        "https://gwfuix7x99.execute-api.us-east-1.amazonaws.com/prod/covid-19"
-      );
-      let { data } = rs.data;
-      setCovid(getData("confirmed", data));
-      covidAPI = data;
-      setLoading(false);
-    }
-    fetchData();
-    // setCovid(getData("confirmed", mockCovidAPI));
-    // covidAPI = mockCovidAPI;
-    // setLoading(false);
+    // async function fetchData() {
+    //   const rs = await axios.get(
+    //     "https://gwfuix7x99.execute-api.us-east-1.amazonaws.com/prod/covid-19"
+    //   );
+    //   let { data } = rs.data;
+    //   setCovid(getData("confirmed", data));
+    //   covidAPI = data;
+    //   setLoading(false);
+    // }
+    // fetchData();
+    setCovid(getData("confirmed", mockCovidAPI));
+    covidAPI = mockCovidAPI;
+    setLoading(false);
   }, []);
 
   const render = () => {
@@ -203,14 +206,9 @@ const Home = props => {
           increaseRecovered: data[i].recovered - data[i + 1].recovered,
           increaseConfirmed: data[i].confirmed - data[i + 1].confirmed,
           increaseDeaths: data[i].deaths - data[i + 1].deaths
-          // deathRate: data[i].deaths / data[i].confirmed
         };
         rs.push(item);
       } else {
-        // rs.push({
-        //   ...data[i],
-        //   deathRate: data[i].deaths / data[i].confirmed
-        // });
         rs.push(data[i]);
       }
     }
@@ -231,10 +229,6 @@ const Home = props => {
 
   useEffect(() => {
     let getSort = "confirmed";
-    // if (sortBy === 10) getSort = "confirmed";
-    // else if (sortBy === 20) getSort = "recovered";
-    // else getSort = "deaths";
-    // deathRate
     switch (sortBy) {
       case 10: {
         getSort = "confirmed";
@@ -406,9 +400,13 @@ const Home = props => {
           </List>
         </Drawer>
         <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: open
-          })}
+          className={clsx(
+            classes.content,
+            {
+              [classes.contentShift]: open
+            },
+            classes.fullWidth
+          )}
         >
           <div className={classes.drawerHeader} />
           <div>{render()}</div>
