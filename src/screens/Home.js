@@ -170,19 +170,19 @@ const Home = props => {
     setOpen(false);
   };
   useEffect(() => {
-    // async function fetchData() {
-    //   const rs = await axios.get(
-    //     "https://gwfuix7x99.execute-api.us-east-1.amazonaws.com/prod/covid-19"
-    //   );
-    //   let { data } = rs.data;
-    //   setCovid(getData("confirmed", data));
-    //   covidAPI = data;
-    //   setLoading(false);
-    // }
-    // fetchData();
-    setCovid(getData("confirmed", mockCovidAPI));
-    covidAPI = mockCovidAPI;
-    setLoading(false);
+    async function fetchData() {
+      const rs = await axios.get(
+        "https://gwfuix7x99.execute-api.us-east-1.amazonaws.com/prod/covid-19"
+      );
+      let { data } = rs.data;
+      setCovid(getData("confirmed", data));
+      covidAPI = data;
+      setLoading(false);
+    }
+    fetchData();
+    // setCovid(getData("confirmed", mockCovidAPI));
+    // covidAPI = mockCovidAPI;
+    // setLoading(false);
   }, []);
 
   const render = () => {
