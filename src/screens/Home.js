@@ -190,7 +190,7 @@ const Home = props => {
     for (let key in covid) {
       temp.push(
         <div key={key}>
-          <CovidInfo info={formatData(covid[key])} />
+          <CovidInfo info={formatData(covid[key])} sortBy={sortBy} />
         </div>
       );
     }
