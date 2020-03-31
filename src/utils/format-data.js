@@ -30,7 +30,7 @@ const getData = (type, data) => {
   });
   const result = {};
   const dataSortByType = dataMore.sort(compareValues(type, "desc"));
-  const dataGroupByCountryName = _.groupBy(dataSortByType, "countryName");
+  const dataGroupByCountryName = _.groupBy(dataSortByType, "pk");
   for (let key in dataGroupByCountryName) {
     result[key] = dataGroupByCountryName[key].sort(compareValues("sk", "desc"));
   }

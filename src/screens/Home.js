@@ -180,13 +180,20 @@ const Home = props => {
       setLoading(false);
     }
     fetchData();
-    // setCovid(getData("confirmed", mockCovidAPI));
-    // covidAPI = mockCovidAPI;
-    // setLoading(false);
+    setCovid(getData("confirmed", mockCovidAPI));
+    covidAPI = mockCovidAPI;
+    setLoading(false);
   }, []);
 
   const render = () => {
     let temp = [];
+    // Add VietNam to first
+    temp.push(
+      <div key="VN0">
+        <CovidInfo info={formatData(covid["VN"])} sortBy={sortBy} />
+        <br />
+      </div>
+    );
     for (let key in covid) {
       temp.push(
         <div key={key}>
