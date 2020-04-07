@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 });
 
 const CovidItem = (props) => {
-  console.log("render covids item");
+  // console.log("render covids item");
   const classes = useStyles();
   const visible = props.visible ? classes.visible : classes.invisible;
   return (
