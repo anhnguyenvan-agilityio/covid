@@ -26,16 +26,21 @@ import Select from "@material-ui/core/Select";
 import InputBase from "@material-ui/core/InputBase";
 import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import Table from "@material-ui/core/Table";
 
 import useDebounce from "../utils/useDebounce";
 
 const _ = require("lodash");
 
-const BootstrapInput = withStyles(theme => ({
+const BootstrapInput = withStyles((theme) => ({
   root: {
     "label + &": {
-      marginTop: theme.spacing(3)
-    }
+      marginTop: theme.spacing(3),
+    },
   },
   input: {
     borderRadius: 4,
@@ -44,81 +49,59 @@ const BootstrapInput = withStyles(theme => ({
     border: "1px solid #ced4da",
     fontSize: 16,
     padding: "10px 26px 10px 12px",
-    transition: theme.transitions.create(["border-color", "box-shadow"]),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"'
-    ].join(","),
-    "&:focus": {
-      borderRadius: 4,
-      borderColor: "#80bdff",
-      boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)"
-    }
-  }
+  },
 }))(InputBase);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   searchContainer: {
-    // padding: "2px 4px",
     display: "flex",
     alignItems: "center",
     width: 150,
     height: 39,
-    marginLeft: "auto"
+    marginLeft: "auto",
   },
   inputSearch: {
-    padding: 10
+    padding: 10,
   },
   bgAppBar: {
-    backgroundColor: "#e8e4e3"
+    backgroundColor: "#e8e4e3",
+    boxShadow: "none",
   },
   marginBtn: {
     marginRight: "10px",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   title: {
     marginRight: "10px",
     color: "rgba(0, 0, 0, 0.87)",
-    fontWeight: 500
+    fontWeight: 500,
   },
   root: {
-    display: "flex"
+    display: "flex",
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButton: {
-    // marginRight: theme.spacing(2)
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   hide: {
-    display: "none"
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   drawerHeader: {
     display: "flex",
@@ -126,34 +109,54 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth
+    marginLeft: -drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
+      duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0
+    marginLeft: 0,
   },
   fullWidth: {
-    width: "100%"
-  }
+    width: "100%",
+    height: "calc(100vh - 64px)",
+    // overflowY: "scroll",
+    marginTop: "64px",
+  },
+  firstCell: {
+    width: "150px",
+    fontSize: "1rem",
+    padding: "10px",
+  },
+  cell: {
+    padding: "10px",
+    width: "150px",
+  },
+  headColor: {
+    backgroundColor: "#e8e4e3",
+    padding: "10px",
+  },
+  removeBoxShadowBorderRadius: {
+    boxShadow: "none",
+    borderRadius: "0px",
+  },
 }));
 
 const drawerWidth = 200;
 
 let covidAPI = [];
 
-const Home = props => {
+const Home = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -170,19 +173,19 @@ const Home = props => {
     setOpen(false);
   };
   useEffect(() => {
-    async function fetchData() {
-      const rs = await axios.get(
-        "https://gwfuix7x99.execute-api.us-east-1.amazonaws.com/prod/covid-19"
-      );
-      let { data } = rs.data;
-      setCovid(getData("confirmed", data));
-      covidAPI = data;
-      setLoading(false);
-    }
-    fetchData();
-    // setCovid(getData("confirmed", mockCovidAPI));
-    // covidAPI = mockCovidAPI;
-    // setLoading(false);
+    // async function fetchData() {
+    //   const rs = await axios.get(
+    //     "https://gwfuix7x99.execute-api.us-east-1.amazonaws.com/prod/covid-19"
+    //   );
+    //   let { data } = rs.data;
+    //   setCovid(getData("confirmed", data));
+    //   covidAPI = data;
+    //   setLoading(false);
+    // }
+    // fetchData();
+    setCovid(getData("confirmed", mockCovidAPI));
+    covidAPI = mockCovidAPI;
+    setLoading(false);
   }, []);
 
   const render = () => {
@@ -206,7 +209,7 @@ const Home = props => {
     return temp;
   };
 
-  const formatData = data => {
+  const formatData = (data) => {
     let rs = [];
     for (let i = 0; i < data.length; i++) {
       if (i !== data.length - 1) {
@@ -214,7 +217,7 @@ const Home = props => {
           ...data[i],
           increaseRecovered: data[i].recovered - data[i + 1].recovered,
           increaseConfirmed: data[i].confirmed - data[i + 1].confirmed,
-          increaseDeaths: data[i].deaths - data[i + 1].deaths
+          increaseDeaths: data[i].deaths - data[i + 1].deaths,
         };
         rs.push(item);
       } else {
@@ -224,12 +227,12 @@ const Home = props => {
     return rs;
   };
 
-  const sort = type => {
+  const sort = (type) => {
     const data = getData(type, covidAPI);
     setCovid(data);
   };
 
-  const changeSearch = event => {
+  const changeSearch = (event) => {
     const value = event.target.value;
     setSearch(value);
   };
@@ -262,7 +265,7 @@ const Home = props => {
     }
     if (search) {
       const data = [...covidAPI];
-      const found = data.filter(function(item) {
+      const found = data.filter(function (item) {
         return (
           item.countryName.toLowerCase().indexOf(search.toLowerCase()) >= 0
         );
@@ -271,9 +274,10 @@ const Home = props => {
     } else {
       setCovid(getData(getSort, covidAPI));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debounceSearch]);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const value = event.target.value;
     if (value === 10) {
       sort("confirmed");
@@ -305,7 +309,7 @@ const Home = props => {
           height: "100vh",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <CircularProgress disableShrink size={200} thickness={4} />
@@ -321,14 +325,13 @@ const Home = props => {
           className={clsx(
             classes.appBar,
             {
-              [classes.appBarShift]: open
+              [classes.appBarShift]: open,
             },
             classes.bgAppBar
           )}
         >
           <Toolbar>
             <IconButton
-              color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
@@ -370,7 +373,7 @@ const Home = props => {
           anchor="left"
           open={open}
           classes={{
-            paper: classes.drawerPaper
+            paper: classes.drawerPaper,
           }}
         >
           <div className={classes.drawerHeader}>
@@ -412,13 +415,43 @@ const Home = props => {
           className={clsx(
             classes.content,
             {
-              [classes.contentShift]: open
+              [classes.contentShift]: open,
             },
             classes.fullWidth
           )}
         >
-          <div className={classes.drawerHeader} />
-          <div>{render()}</div>
+          <div
+            style={{
+              paddingRight: "17px",
+            }}
+          >
+            <TableContainer
+              component={Paper}
+              className={classes.removeBoxShadowBorderRadius}
+            >
+              <Table aria-label="simple table">
+                <TableHead className={classes.headColor}>
+                  <TableRow>
+                    <TableCell className={classes.firstCell}>
+                      {props.countryName}
+                    </TableCell>
+                    <TableCell className={classes.cell}>Nhiễm</TableCell>
+                    <TableCell className={classes.cell}>Phục hồi</TableCell>
+                    <TableCell className={classes.cell}>Chết</TableCell>
+                    <TableCell className={classes.cell}>Tỷ lệ chết</TableCell>
+                  </TableRow>
+                </TableHead>
+              </Table>
+            </TableContainer>
+          </div>
+          <div
+            style={{
+              overflowY: "scroll",
+              height: "calc(100vh - 167px)",
+            }}
+          >
+            {render()}
+          </div>
         </main>
       </div>
     </React.Fragment>

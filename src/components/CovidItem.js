@@ -8,23 +8,32 @@ const _ = require("lodash");
 const useStyles = makeStyles({
   cell: {
     padding: "10px",
-    width: "150px"
+    width: "150px",
   },
   visible: {
-    display: "table-row"
+    display: "table-row",
   },
   invisible: {
-    display: "none"
-  }
+    display: "none",
+  },
+  firstCell: {
+    width: "150px",
+    padding: "10px",
+  },
 });
 
-const CovidItem = props => {
+const CovidItem = (props) => {
   console.log("render covids item");
   const classes = useStyles();
   const visible = props.visible ? classes.visible : classes.invisible;
   return (
     <TableRow className={visible}>
-      <TableCell component="th" scope="row" align="left">
+      <TableCell
+        component="th"
+        scope="row"
+        align="left"
+        className={classes.firstCell}
+      >
         {props.covid.sk}
       </TableCell>
       <TableCell align="left" className={classes.cell}>
