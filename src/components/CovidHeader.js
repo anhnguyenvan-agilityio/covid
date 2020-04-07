@@ -8,29 +8,23 @@ const _ = require("lodash");
 const useStyles = makeStyles({
   firstCell: {
     width: "150px",
-    fontSize: "1rem",
-    padding: "10px"
-  },
-  cell: {
     padding: "10px",
-    width: "150px"
+    textAlign: "center",
   },
   headColor: {
     backgroundColor: "#e8e4e3",
-    padding: "10px"
-  }
+    padding: "10px",
+  },
 });
 
-const CovidHeader = props => {
+const CovidHeader = (props) => {
   const classes = useStyles();
   return (
     <TableHead className={classes.headColor}>
       <TableRow>
-        <TableCell className={classes.firstCell}>{props.countryName}</TableCell>
-        <TableCell className={classes.cell}>Nhiễm</TableCell>
-        <TableCell className={classes.cell}>Phục hồi</TableCell>
-        <TableCell className={classes.cell}>Chết</TableCell>
-        <TableCell className={classes.cell}>Tỷ lệ chết</TableCell>
+        <TableCell className={classes.firstCell} colSpan={5}>
+          {props.countryName}
+        </TableCell>
       </TableRow>
     </TableHead>
   );
