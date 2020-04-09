@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { getData } from "../utils/format-data";
 import CovidInfo from "../components/CovidInfo";
 import axios from "axios";
@@ -31,6 +31,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
 
 import useDebounce from "../utils/useDebounce";
 
@@ -130,21 +131,21 @@ const useStyles = makeStyles((theme) => ({
   fullWidth: {
     width: "100%",
     height: "calc(100vh - 64px)",
-    // overflowY: "scroll",
     marginTop: "64px",
+  },
+  fullHeight: {
+    height: "100%",
   },
   firstCell: {
     width: "150px",
     fontSize: "1rem",
     padding: "10px",
+    backgroundColor: "#e8e4e3",
   },
   cell: {
     padding: "10px",
     width: "150px",
-  },
-  headColor: {
     backgroundColor: "#e8e4e3",
-    padding: "10px",
   },
   removeBoxShadowBorderRadius: {
     boxShadow: "none",
@@ -193,17 +194,29 @@ const Home = (props) => {
     // Add VietNam to first
     if (covid["VN"]) {
       temp.push(
-        <div key="VN0">
+        <React.Fragment key="VN0">
+          <TableRow>
+            <TableCell colSpan={5} align="center">
+              {covid["VN"][0].countryName}
+            </TableCell>
+          </TableRow>
           <CovidInfo info={formatData(covid["VN"])} sortBy={sortBy} />
-          <br />
-        </div>
+          <TableRow>
+            <TableCell colSpan={5}></TableCell>
+          </TableRow>
+        </React.Fragment>
       );
     }
     for (let key in covid) {
       temp.push(
-        <div key={key}>
+        <React.Fragment key={key}>
+          <TableRow>
+            <TableCell colSpan={5} align="center">
+              {covid[key][0].countryName}
+            </TableCell>
+          </TableRow>
           <CovidInfo info={formatData(covid[key])} sortBy={sortBy} />
-        </div>
+        </React.Fragment>
       );
     }
     return temp;
@@ -420,38 +433,28 @@ const Home = (props) => {
             classes.fullWidth
           )}
         >
-          <div
-            style={{
-              paddingRight: "17px",
-            }}
+          <TableContainer
+            component={Paper}
+            className={clsx(
+              classes.removeBoxShadowBorderRadius,
+              classes.fullHeight
+            )}
           >
-            <TableContainer
-              component={Paper}
-              className={classes.removeBoxShadowBorderRadius}
-            >
-              <Table aria-label="simple table">
-                <TableHead className={classes.headColor}>
-                  <TableRow>
-                    <TableCell className={classes.firstCell}>
-                      {props.countryName}
-                    </TableCell>
-                    <TableCell className={classes.cell}>Nhiễm</TableCell>
-                    <TableCell className={classes.cell}>Phục hồi</TableCell>
-                    <TableCell className={classes.cell}>Chết</TableCell>
-                    <TableCell className={classes.cell}>Tỷ lệ chết</TableCell>
-                  </TableRow>
-                </TableHead>
-              </Table>
-            </TableContainer>
-          </div>
-          <div
-            style={{
-              overflowY: "scroll",
-              height: "calc(100vh - 167px)",
-            }}
-          >
-            {render()}
-          </div>
+            <Table aria-label="sticky table" stickyHeader>
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.firstCell}>
+                    {props.countryName}
+                  </TableCell>
+                  <TableCell className={classes.cell}>Nhiễm</TableCell>
+                  <TableCell className={classes.cell}>Phục hồi</TableCell>
+                  <TableCell className={classes.cell}>Chết</TableCell>
+                  <TableCell className={classes.cell}>Tỷ lệ chết</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{render()}</TableBody>
+            </Table>
+          </TableContainer>
         </main>
       </div>
     </React.Fragment>
